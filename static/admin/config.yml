@@ -1,3 +1,6 @@
+# Enable for local development only
+local_backend: true
+
 backend:
   name: git-gateway
   branch: master # Branch to update (optional; defaults to master)
@@ -12,16 +15,25 @@ collections:
     editor:
       preview: true
     fields:
-      - { label: 'Title', name: 'title', widget: 'string' }
+      - { label: 'Title', name: 'title', widget: 'string', i18n: true }
       - { label: 'Publish Date', name: 'date', widget: 'datetime' }
-      - { label: 'Description', name: 'description', widget: 'string' }
-      - { label: 'Body', name: 'body', widget: 'markdown' }
-  - name: pages
-    label: Pages
-    files: [
-      { name: home, label: Home, file: content/_index.md, fields: [
-        { name: title, widget: string },
-        { name: wlecome, widget: text },
-        { name: body, widget: markdown },
-      ]}
+      - { label: 'Description', name: 'description', widget: 'string', i18n: duplicate }
+      - { label: 'Body', name: 'body', widget: 'markdown', i18n: true }
+    i18n: true
+  - name: home
+    label: Home Page
+    folder: 'content'
+    i18n: true
+    delete: false
+    editor:
+      preview: true
+    fields: [
+      { name: title, widget: text },
+      { name: welcome, widget: text, i18n: true },
+      { name: webinar, widget: text, i18n: true },
     ]
+
+i18n:
+  structure: multiple_files
+  locales: [sv, en]
+  default_locale: sv
